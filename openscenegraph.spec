@@ -25,7 +25,7 @@ visualization. Uses range from visual simulation, scientific modeling, virtual
 reality through to games.  Open Scene Graph employs good practices in software
 engineering through the use of standard C++, STL and generic programming, and
 design patterns.  Open Scene Graph strives for high performance and quality in
-graphics rendering, protability, and extensibility.
+graphics rendering, portability, and extensibility.
 
 %files
 %defattr(-,root,root,-)
