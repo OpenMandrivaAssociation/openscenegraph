@@ -3,7 +3,7 @@
 Summary:	A C++ scene graph API on OpenGL for real time graphics
 Name:		openscenegraph
 Version:	2.8.2
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	LGPLv2+ with exceptions
 Group:		System/Libraries
 Source0:	http://www.openscenegraph.org/downloads/developer_releases/%{srcname}-%{version}.zip
