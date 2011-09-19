@@ -2,20 +2,19 @@
 
 Summary:	A C++ scene graph API on OpenGL for real time graphics
 Name:		openscenegraph
-Version:	2.8.5
+Version:	3.0.1
 Release:	%mkrel 1
 License:	LGPLv2+ with exceptions
 Group:		System/Libraries
-Source0:	http://www.openscenegraph.org/downloads/stable_releases/OpenSceneGraph-%{version}/source/%{srcname}-%{version}.zip
-Patch1:		OpenSceneGraph-2.8.3-linkage.patch
+Source0:	http://www.openscenegraph.org/downloads/developer_releases/%{srcname}-%{version}.zip
 Patch2:		OpenSceneGraph-2.8.3-ffmpeg.patch
 URL:		http://www.openscenegraph.org/
 Provides:	OpenSceneGraph = %{version}-%{release}
 Obsoletes:	OpenSceneGraph < 2.8.0-2
-BuildRequires:	png-devel tiff-devel ungif-devel jpeg-devel jasper-devel
-BuildRequires:	gdal-devel freetype2-devel mesaglut-devel libxine-devel
-BuildRequires:	curl-devel gtk+2-devel gtkglext-devel librsvg-devel
-BuildRequires:	wxgtku2.8-devel
+BuildRequires:  png-devel tiff-devel ungif-devel jpeg-devel jasper-devel
+BuildRequires:  gdal-devel freetype2-devel mesagl-devel libxine-devel
+BuildRequires:  curl-devel gtk+2-devel gtkglext-devel librsvg-devel
+BuildRequires:  wxgtku2.8-devel
 BuildRequires:	libpoppler-glib-devel
 BuildRequires:	cmake
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -59,7 +58,6 @@ This package contains development files for %name
 
 %prep
 %setup -qn %{srcname}-%{version}
-#%patch1 -p0
 %patch2 -p0
 
 %build
