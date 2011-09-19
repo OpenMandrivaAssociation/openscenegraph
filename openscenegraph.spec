@@ -15,7 +15,7 @@ BuildRequires:  png-devel tiff-devel ungif-devel jpeg-devel jasper-devel
 BuildRequires:  gdal-devel freetype2-devel mesagl-devel libxine-devel
 BuildRequires:  curl-devel gtk+2-devel gtkglext-devel librsvg-devel
 BuildRequires:  wxgtku2.8-devel itk-devel openal-devel zlib-devel qt4-devel
-BuildRequires:	libpoppler-glib-devel
+BuildRequires:	libpoppler-glib-devel libuuid-devel
 BuildRequires:	cmake
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
