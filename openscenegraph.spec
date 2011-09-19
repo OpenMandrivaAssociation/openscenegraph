@@ -15,7 +15,7 @@ BuildRequires:  png-devel tiff-devel ungif-devel jpeg-devel jasper-devel
 BuildRequires:  gdal-devel freetype2-devel mesagl-devel libxine-devel
 BuildRequires:  curl-devel gtk+2-devel gtkglext-devel librsvg-devel
 BuildRequires:  wxgtku2.8-devel itk-devel openal-devel zlib-devel qt4-devel
-BuildRequires:	libpoppler-glib-devel zlib-devel
+BuildRequires:	libpoppler-glib-devel
 BuildRequires:	cmake
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
@@ -60,6 +60,8 @@ This package contains development files for %name
 %patch2 -p0
 
 %build
+CFLAGS="%{optflags} -pthread"
+CXXFLAGS="%{optflags} -pthread"
 %cmake
 %make VERBOSE=TRUE
 
