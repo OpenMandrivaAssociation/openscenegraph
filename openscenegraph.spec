@@ -51,8 +51,7 @@ This package contains development files for %name
 %defattr(-,root,root,-)
 %{_includedir}/*
 %{_libdir}/*.so
-%{_libdir}/pkgconfig/openscenegraph.pc
-%{_libdir}/pkgconfig/openthreads.pc
+%{_libdir}/pkgconfig/*.pc
 
 #------------------------------------------------------------------
 
