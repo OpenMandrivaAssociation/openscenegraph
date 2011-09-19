@@ -14,7 +14,7 @@ Obsoletes:	OpenSceneGraph < 2.8.0-2
 BuildRequires:  png-devel tiff-devel ungif-devel jpeg-devel jasper-devel
 BuildRequires:  gdal-devel freetype2-devel mesagl-devel libxine-devel
 BuildRequires:  curl-devel gtk+2-devel gtkglext-devel librsvg-devel
-BuildRequires:  wxgtku2.8-devel
+BuildRequires:  wxgtku2.8-devel itk-devel openal-devel
 BuildRequires:	libpoppler-glib-devel
 BuildRequires:	cmake
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
