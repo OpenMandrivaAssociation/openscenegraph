@@ -3,21 +3,37 @@
 Summary:	A C++ scene graph API on OpenGL for real time graphics
 Name:		openscenegraph
 Version:	3.0.1
-Release:	%mkrel 1
+Release:	2
 License:	LGPLv2+ with exceptions
 Group:		System/Libraries
-Source0:	http://www.openscenegraph.org/downloads/developer_releases/%{srcname}-%{version}.zip
-Patch2:		OpenSceneGraph-2.8.3-ffmpeg.patch
 URL:		http://www.openscenegraph.org/
+Source0:	http://www.openscenegraph.org/downloads/developer_releases/%{srcname}-%{version}.zip
+Patch0:		OpenSceneGraph-3.0.1-xine1.2.patch
+Patch2:		OpenSceneGraph-2.8.3-ffmpeg.patch
+BuildRequires:	cmake
+BuildRequires:	pkgconfig(libpng)
+BuildRequires:	tiff-devel
+BuildRequires:	ungif-devel
+BuildRequires:	jpeg-devel
+BuildRequires:	pkgconfig(jasper)
+BuildRequires:	gdal-devel
+BuildRequires:	pkgconfig(freetype2)
+BuildRequires:	pkgconfig(gl)
+BuildRequires:	pkgconfig(libxine)
+BuildRequires:	pkgconfig(libcurl)
+BuildRequires:	pkgconfig(gtk+-2.0)
+BuildRequires:	pkgconfig(gtkglext-1.0)
+BuildRequires:	pkgconfig(librsvg-2.0)
+BuildRequires:	wxgtku2.8-devel
+BuildRequires:	itk-devel
+BuildRequires:	pkgconfig(openal)
+BuildRequires:	pkgconfig(zlib)
+BuildRequires:	qt4-devel
+BuildRequires:	pkgconfig(poppler-glib)
+BuildRequires:	pkgconfig(uuid)
+BuildRequires:	ffmpeg0.7-devel
 Provides:	OpenSceneGraph = %{version}-%{release}
 Obsoletes:	OpenSceneGraph < 2.8.0-2
-BuildRequires:  png-devel tiff-devel ungif-devel jpeg-devel jasper-devel
-BuildRequires:  gdal-devel freetype2-devel mesagl-devel libxine-devel
-BuildRequires:  curl-devel gtk+2-devel gtkglext-devel librsvg-devel
-BuildRequires:  wxgtku2.8-devel itk-devel openal-devel zlib-devel qt4-devel
-BuildRequires:	libpoppler-glib-devel libuuid-devel
-BuildRequires:	cmake
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 The Open Scene Graph is a cross-platform C++/OpenGL library for the real-time 
@@ -28,7 +44,6 @@ design patterns.  Open Scene Graph strives for high performance and quality in
 graphics rendering, portability, and extensibility.
 
 %files
-%defattr(-,root,root,-)
 %doc AUTHORS.txt ChangeLog LICENSE.txt NEWS.txt README.txt
 %doc doc/*
 %{_bindir}/*
@@ -38,17 +53,16 @@ graphics rendering, portability, and extensibility.
 #------------------------------------------------------------------
 
 %package devel
-Summary:	Development package for %name
+Summary:	Development package for %{name}
 Group:		Development/C++
 Provides:	OpenSceneGraph-devel = %{version}-%{release}
 Obsoletes:	OpenSceneGraph-devel < 2.8.0-2
 Requires:	%{name} = %{version}
 
 %description devel
-This package contains development files for %name
+This package contains development files for %{name}
 
 %files devel
-%defattr(-,root,root,-)
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
@@ -57,6 +71,7 @@ This package contains development files for %name
 
 %prep
 %setup -qn %{srcname}-%{version}
+%patch0 -p0
 %patch2 -p0
 
 %build
@@ -66,8 +81,78 @@ CXXFLAGS="%{optflags} -pthread"
 %make VERBOSE=TRUE
 
 %install
-%{__rm} -rf %{buildroot}
 %makeinstall_std -C build
 
-%clean
-%{__rm} -rf %{buildroot}
+%changelog
+* Mon Sep 19 2011 Andrey Bondrov <abondrov@mandriva.org> 3.0.1-1
++ Revision: 700386
+- More BuildRequires
+- New version: 3.0.1
+
+* Wed Jun 15 2011 Funda Wang <fwang@mandriva.org> 2.8.5-1
++ Revision: 685221
+- new version 2.8.5
+- New version 2.8.3
+
+* Thu Dec 30 2010 Funda Wang <fwang@mandriva.org> 2.8.2-5mdv2011.0
++ Revision: 626157
+- rebuild for new poppler
+
+* Sat Jan 16 2010 Funda Wang <fwang@mandriva.org> 2.8.2-4mdv2011.0
++ Revision: 492261
+- rebuild for new libjpeg v8
+
+* Thu Oct 01 2009 Funda Wang <fwang@mandriva.org> 2.8.2-3mdv2010.0
++ Revision: 451968
+- rebuild
+
+* Sun Aug 23 2009 Funda Wang <fwang@mandriva.org> 2.8.2-2mdv2010.0
++ Revision: 419812
+- rebuild for new libjpeg v7
+
+  + Florent Monnier <blue_prawn@mandriva.org>
+    - corrected a typo
+
+* Mon Aug 03 2009 Frederik Himpe <fhimpe@mandriva.org> 2.8.2-1mdv2010.0
++ Revision: 408550
+- update to new version 2.8.2
+
+* Wed Jun 03 2009 Frederik Himpe <fhimpe@mandriva.org> 2.8.1-1mdv2010.0
++ Revision: 382538
+- Update to new version 2.8.1
+
+* Tue May 19 2009 Götz Waschk <waschk@mandriva.org> 2.8.0-3mdv2010.0
++ Revision: 377494
+- rebuild for new poppler
+
+* Sun Mar 01 2009 Frederik Himpe <fhimpe@mandriva.org> 2.8.0-2mdv2009.1
++ Revision: 346426
+- Rename to lower case openscenegraph
+- Add libpoppler-glib-devel BuildRequires
+- Define CMAKE_BUILD_TYPE=Release, otherwise the library names get a
+  d suffix which are not found by other applications linking to OSG
+
+* Sat Feb 28 2009 Frederik Himpe <fhimpe@mandriva.org> 2.8.0-1mdv2009.1
++ Revision: 346183
+- Update to new version 2.8.0
+- Remove Werror=format-scurity patch: integrated upstream
+- used %%{buildroot} macro in SPEC file instead of $RPM_BUILD_ROOT
+
+* Sun Feb 01 2009 Funda Wang <fwang@mandriva.org> 2.6.1-2mdv2009.1
++ Revision: 336057
+- add more BRs
+
+* Sat Jan 31 2009 Funda Wang <fwang@mandriva.org> 2.6.1-1mdv2009.1
++ Revision: 335875
+- New version 2.6.1
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - rebuild
+    - fix mesaglu-devel BR
+    - kill re-definition of %%buildroot on Pixel's request
+    - buildrequires X11-devel instead of XFree86-devel
+    - import OpenSceneGraph
+
+  + Olivier Blin <blino@mandriva.org>
+    - restore BuildRoot
+
