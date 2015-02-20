@@ -12,7 +12,6 @@ Patch0:		OpenSceneGraph-2.8.3-ffmpeg.patch
 BuildRequires:	cmake
 BuildRequires:	ffmpeg-devel
 BuildRequires:	gdal-devel
-BuildRequires:	itk-devel
 BuildRequires:	jpeg-devel
 BuildRequires:	qt4-devel
 BuildRequires:	tiff-devel
