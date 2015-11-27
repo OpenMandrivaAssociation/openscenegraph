@@ -64,7 +64,7 @@ OpenSceneGraph plugins.
 
 #----------------------------------------------------------------------------
 
-%define OpenThreads_major 13
+%define OpenThreads_major 20
 %define libOpenThreads %mklibname OpenThreads %{OpenThreads_major}
 
 %package -n %{libOpenThreads}
@@ -76,7 +76,7 @@ OpenSceneGraph shared library.
 
 %files -n %{libOpenThreads}
 %{_libdir}/libOpenThreads.so.%{OpenThreads_major}
-%{_libdir}/libOpenThreads.so.%{version}
+%{_libdir}/libOpenThreads.so.3.2.1
 
 #----------------------------------------------------------------------------
 
