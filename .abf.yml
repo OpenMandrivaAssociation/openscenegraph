@@ -1,2 +1,4 @@
-sources:
+removed_sources:
   OpenSceneGraph-3.2.0.zip: c20891862b5876983d180fc4a3d3cfb2b4a3375c
+sources:
+  OpenSceneGraph-3.2.3.zip: 72de6e671d7c29dcc055b3380e8029065565c40d
