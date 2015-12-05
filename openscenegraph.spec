@@ -2,18 +2,17 @@
 
 Summary:	A C++ scene graph API on OpenGL for real time graphics
 Name:		openscenegraph
-Version:	3.2.0
-Release:	3
+Version:	3.4.0
+Release:	1
 License:	LGPLv2+ with exceptions
 Group:		System/Libraries
 Url:		http://www.openscenegraph.org/
-Source0:	http://www.openscenegraph.org/downloads/developer_releases/%{srcname}-%{version}.zip
-Patch0:		OpenSceneGraph-2.8.3-ffmpeg.patch
+Source0:	http://trac.openscenegraph.org/downloads/developer_releases/%{srcname}-%{version}.zip
 BuildRequires:	cmake
 BuildRequires:	ffmpeg-devel
 BuildRequires:	gdal-devel
 BuildRequires:	jpeg-devel
-BuildRequires:	qt4-devel
+BuildRequires:	qt5-devel
 BuildRequires:	tiff-devel
 BuildRequires:	ungif-devel
 BuildRequires:	pkgconfig(cairo)
@@ -64,7 +63,7 @@ OpenSceneGraph plugins.
 
 #----------------------------------------------------------------------------
 
-%define OpenThreads_major 13
+%define OpenThreads_major 20
 %define libOpenThreads %mklibname OpenThreads %{OpenThreads_major}
 
 %package -n %{libOpenThreads}
@@ -76,7 +75,7 @@ OpenSceneGraph shared library.
 
 %files -n %{libOpenThreads}
 %{_libdir}/libOpenThreads.so.%{OpenThreads_major}
-%{_libdir}/libOpenThreads.so.%{version}
+%{_libdir}/libOpenThreads.so.3.3.0
 
 #----------------------------------------------------------------------------
 
@@ -98,7 +97,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osg_major 100
+%define osg_major 130
 %define libosg %mklibname osg %{osg_major}
 
 %package -n %{libosg}
@@ -132,7 +131,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgAnimation_major 100
+%define osgAnimation_major 130
 %define libosgAnimation %mklibname osgAnimation %{osgAnimation_major}
 
 %package -n %{libosgAnimation}
@@ -166,7 +165,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgDB_major 100
+%define osgDB_major 130
 %define libosgDB %mklibname osgDB %{osgDB_major}
 
 %package -n %{libosgDB}
@@ -200,7 +199,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgFX_major 100
+%define osgFX_major 130
 %define libosgFX %mklibname osgFX %{osgFX_major}
 
 %package -n %{libosgFX}
@@ -234,7 +233,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgGA_major 100
+%define osgGA_major 130
 %define libosgGA %mklibname osgGA %{osgGA_major}
 
 %package -n %{libosgGA}
@@ -268,7 +267,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgManipulator_major 100
+%define osgManipulator_major 130
 %define libosgManipulator %mklibname osgManipulator %{osgManipulator_major}
 
 %package -n %{libosgManipulator}
@@ -302,7 +301,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgParticle_major 100
+%define osgParticle_major 130
 %define libosgParticle %mklibname osgParticle %{osgParticle_major}
 
 %package -n %{libosgParticle}
@@ -336,7 +335,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgPresentation_major 100
+%define osgPresentation_major 130
 %define libosgPresentation %mklibname osgPresentation %{osgPresentation_major}
 
 %package -n %{libosgPresentation}
@@ -369,7 +368,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgQt_major 100
+%define osgQt_major 130
 %define libosgQt %mklibname osgQt %{osgQt_major}
 
 %package -n %{libosgQt}
@@ -403,7 +402,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgShadow_major 100
+%define osgShadow_major 130
 %define libosgShadow %mklibname osgShadow %{osgShadow_major}
 
 %package -n %{libosgShadow}
@@ -437,7 +436,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgSim_major 100
+%define osgSim_major 130
 %define libosgSim %mklibname osgSim %{osgSim_major}
 
 %package -n %{libosgSim}
@@ -471,7 +470,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgTerrain_major 100
+%define osgTerrain_major 130
 %define libosgTerrain %mklibname osgTerrain %{osgTerrain_major}
 
 %package -n %{libosgTerrain}
@@ -505,7 +504,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgText_major 100
+%define osgText_major 130
 %define libosgText %mklibname osgText %{osgText_major}
 
 %package -n %{libosgText}
@@ -539,7 +538,40 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgUtil_major 100
+%define osgUI_major 130
+%define libosgUI %mklibname osgUI %{osgUI_major}
+
+%package -n %{libosgUI}
+Summary:        OpenSceneGraph shared library
+Group:          System/Libraries
+
+%description -n %{libosgUI}
+OpenSceneGraph shared library.
+
+%files -n %{libosgUI}
+%{_libdir}/libosgUI.so.%{osgUtil_major}
+%{_libdir}/libosgUI.so.%{version}
+
+#----------------------------------------------------------------------------
+
+%define devosgUI %mklibname osgUI -d
+
+%package -n %{devosgUI}
+Summary:        OpenSceneGraph development files
+Group:          Development/C++
+Requires:       %{libosgUI} = %{EVRD}
+Conflicts:      openscenegraph-devel < 3.2.0
+
+%description -n %{devosgUI}
+OpenSceneGraph development files.
+
+%files -n %{devosgUI}
+%{_includedir}/osgUI
+%{_libdir}/libosgUI.so
+
+#----------------------------------------------------------------------------
+
+%define osgUtil_major 130
 %define libosgUtil %mklibname osgUtil %{osgUtil_major}
 
 %package -n %{libosgUtil}
@@ -573,7 +605,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgViewer_major 100
+%define osgViewer_major 130
 %define libosgViewer %mklibname osgViewer %{osgViewer_major}
 
 %package -n %{libosgViewer}
@@ -607,7 +639,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgVolume_major 100
+%define osgVolume_major 130
 %define libosgVolume %mklibname osgVolume %{osgVolume_major}
 
 %package -n %{libosgVolume}
@@ -641,7 +673,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgWidget_major 100
+%define osgWidget_major 130
 %define libosgWidget %mklibname osgWidget %{osgWidget_major}
 
 %package -n %{libosgWidget}
@@ -693,6 +725,7 @@ Requires:	%{devosgShadow} = %{EVRD}
 Requires:	%{devosgSim} = %{EVRD}
 Requires:	%{devosgTerrain} = %{EVRD}
 Requires:	%{devosgText} = %{EVRD}
+Requires:	%{devosgUI} = %{EVRD}
 Requires:	%{devosgUtil} = %{EVRD}
 Requires:	%{devosgViewer} = %{EVRD}
 Requires:	%{devosgVolume} = %{EVRD}
@@ -708,12 +741,11 @@ This package contains development files for %{name}
 
 %prep
 %setup -qn %{srcname}-%{version}
-%patch0 -p0
 
 %build
 CFLAGS="%{optflags} -pthread"
 CXXFLAGS="%{optflags} -pthread"
-%cmake -DDESIRED_QT_VERSION=4
+%cmake -DDESIRED_QT_VERSION=5
 %make VERBOSE=TRUE
 
 %install
