@@ -3,12 +3,12 @@
 Summary:	A C++ scene graph API on OpenGL for real time graphics
 Name:		openscenegraph
 Version:	3.4.0
-Release:	2
+Release:	3
 License:	LGPLv2+ with exceptions
 Group:		System/Libraries
 Url:		http://www.openscenegraph.org/
 Source0:	http://trac.openscenegraph.org/downloads/developer_releases/%{srcname}-%{version}.zip
-Patch0:		OpenSceneGraph-3.4.0-ffmpeg-3.0.patch
+Patch1:		openscenegraph-ffmpeg3.patch
 BuildRequires:	cmake
 BuildRequires:	ffmpeg-devel
 BuildRequires:	gdal-devel
