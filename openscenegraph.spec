@@ -8,6 +8,7 @@ License:	LGPLv2+ with exceptions
 Group:		System/Libraries
 Url:		http://www.openscenegraph.org/
 Source0:	http://trac.openscenegraph.org/downloads/developer_releases/%{srcname}-%{version}.zip
+Patch0:		OpenSceneGraph-3.4.0-ffmpeg-3.0.patch
 BuildRequires:	cmake
 BuildRequires:	ffmpeg-devel
 BuildRequires:	gdal-devel
@@ -741,6 +742,7 @@ This package contains development files for %{name}
 
 %prep
 %setup -qn %{srcname}-%{version}
+%apply_patches
 
 %build
 CFLAGS="%{optflags} -pthread"
