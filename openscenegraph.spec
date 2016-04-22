@@ -1,13 +1,14 @@
 %define	srcname	OpenSceneGraph
+%define	common_major 143
 
 Summary:	A C++ scene graph API on OpenGL for real time graphics
 Name:		openscenegraph
-Version:	3.4.0
-Release:	3
+Version:	3.5.2
+Release:	1
 License:	LGPLv2+ with exceptions
 Group:		System/Libraries
 Url:		http://www.openscenegraph.org/
-Source0:	http://trac.openscenegraph.org/downloads/developer_releases/%{srcname}-%{version}.zip
+Source0:	http://trac.openscenegraph.org/downloads/developer_releases/%{srcname}-%{version}.tar.gz
 Patch1:		openscenegraph-ffmpeg3.patch
 BuildRequires:	cmake
 BuildRequires:	ffmpeg-devel
@@ -98,7 +99,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osg_major 130
+%define osg_major %{common_major}
 %define libosg %mklibname osg %{osg_major}
 
 %package -n %{libosg}
@@ -132,7 +133,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgAnimation_major 130
+%define osgAnimation_major %{common_major}
 %define libosgAnimation %mklibname osgAnimation %{osgAnimation_major}
 
 %package -n %{libosgAnimation}
@@ -166,7 +167,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgDB_major 130
+%define osgDB_major %{common_major}
 %define libosgDB %mklibname osgDB %{osgDB_major}
 
 %package -n %{libosgDB}
@@ -200,7 +201,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgFX_major 130
+%define osgFX_major %{common_major}
 %define libosgFX %mklibname osgFX %{osgFX_major}
 
 %package -n %{libosgFX}
@@ -234,7 +235,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgGA_major 130
+%define osgGA_major %{common_major}
 %define libosgGA %mklibname osgGA %{osgGA_major}
 
 %package -n %{libosgGA}
@@ -268,7 +269,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgManipulator_major 130
+%define osgManipulator_major %{common_major}
 %define libosgManipulator %mklibname osgManipulator %{osgManipulator_major}
 
 %package -n %{libosgManipulator}
@@ -302,7 +303,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgParticle_major 130
+%define osgParticle_major %{common_major}
 %define libosgParticle %mklibname osgParticle %{osgParticle_major}
 
 %package -n %{libosgParticle}
@@ -336,7 +337,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgPresentation_major 130
+%define osgPresentation_major %{common_major}
 %define libosgPresentation %mklibname osgPresentation %{osgPresentation_major}
 
 %package -n %{libosgPresentation}
@@ -369,7 +370,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgQt_major 130
+%define osgQt_major %{common_major}
 %define libosgQt %mklibname osgQt %{osgQt_major}
 
 %package -n %{libosgQt}
@@ -403,7 +404,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgShadow_major 130
+%define osgShadow_major %{common_major}
 %define libosgShadow %mklibname osgShadow %{osgShadow_major}
 
 %package -n %{libosgShadow}
@@ -437,7 +438,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgSim_major 130
+%define osgSim_major %{common_major}
 %define libosgSim %mklibname osgSim %{osgSim_major}
 
 %package -n %{libosgSim}
@@ -471,7 +472,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgTerrain_major 130
+%define osgTerrain_major %{common_major}
 %define libosgTerrain %mklibname osgTerrain %{osgTerrain_major}
 
 %package -n %{libosgTerrain}
@@ -505,7 +506,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgText_major 130
+%define osgText_major %{common_major}
 %define libosgText %mklibname osgText %{osgText_major}
 
 %package -n %{libosgText}
@@ -539,7 +540,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgUI_major 130
+%define osgUI_major %{common_major}
 %define libosgUI %mklibname osgUI %{osgUI_major}
 
 %package -n %{libosgUI}
@@ -572,7 +573,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgUtil_major 130
+%define osgUtil_major %{common_major}
 %define libosgUtil %mklibname osgUtil %{osgUtil_major}
 
 %package -n %{libosgUtil}
@@ -606,7 +607,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgViewer_major 130
+%define osgViewer_major %{common_major}
 %define libosgViewer %mklibname osgViewer %{osgViewer_major}
 
 %package -n %{libosgViewer}
@@ -640,7 +641,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgVolume_major 130
+%define osgVolume_major %{common_major}
 %define libosgVolume %mklibname osgVolume %{osgVolume_major}
 
 %package -n %{libosgVolume}
@@ -674,7 +675,7 @@ OpenSceneGraph development files.
 
 #----------------------------------------------------------------------------
 
-%define osgWidget_major 130
+%define osgWidget_major %{common_major}
 %define libosgWidget %mklibname osgWidget %{osgWidget_major}
 
 %package -n %{libosgWidget}
@@ -741,7 +742,7 @@ This package contains development files for %{name}
 #----------------------------------------------------------------------------
 
 %prep
-%setup -qn %{srcname}-%{version}
+%setup -qn %{srcname}-%{srcname}-%{version}
 %apply_patches
 
 %build
