@@ -1,0 +1,206 @@
+--- OpenSceneGraph-3.4.0/src/osgPlugins/ffmpeg/FFmpegDecoderAudio.cpp.ff3~	2016-03-24 09:45:09.000000000 +0000
++++ OpenSceneGraph-3.4.0/src/osgPlugins/ffmpeg/FFmpegDecoderAudio.cpp	2016-03-24 09:47:11.000000000 +0000
+@@ -227,9 +227,7 @@ printf("### CONVERTING from sample forma
+         if (avcodec_open2(m_context, p_codec, NULL) < 0)
+             throw std::runtime_error("avcodec_open() failed");
+ 
+-        m_context->get_buffer = avcodec_default_get_buffer;
+-        m_context->release_buffer = avcodec_default_release_buffer;
+-
++        m_context->get_buffer2 = avcodec_default_get_buffer2;
+     }
+ 
+     catch (...)
+--- OpenSceneGraph-3.4.0/src/osgPlugins/ffmpeg/FFmpegDecoderVideo.cpp.ff3~	2016-03-24 09:53:14.000000000 +0000
++++ OpenSceneGraph-3.4.0/src/osgPlugins/ffmpeg/FFmpegDecoderVideo.cpp	2016-03-24 13:22:46.000000000 +0000
+@@ -6,6 +6,10 @@
+ #include <stdexcept>
+ #include <string.h>
+ 
++#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(55,28,1)
++#define av_frame_alloc  avcodec_alloc_frame
++#endif
++
+ namespace osgFFmpeg {
+ 
+ // TODO - add support for using RGB or RGBA pixel format.
+@@ -71,7 +75,7 @@ void FFmpegDecoderVideo::open(AVStream *
+     findAspectRatio();
+ 
+     // Find out whether we support Alpha channel
+-    m_alpha_channel = (m_context->pix_fmt == PIX_FMT_YUVA420P);
++    m_alpha_channel = (m_context->pix_fmt == AV_PIX_FMT_YUVA420P);
+ 
+     // Find out the framerate
+     #if LIBAVCODEC_VERSION_MAJOR >= 56
+@@ -95,20 +99,19 @@ void FFmpegDecoderVideo::open(AVStream *
+         throw std::runtime_error("avcodec_open() failed");
+ 
+     // Allocate video frame
+-    m_frame.reset(avcodec_alloc_frame());
++    m_frame.reset(av_frame_alloc());
+ 
+     // Allocate converted RGB frame
+-    m_frame_rgba.reset(avcodec_alloc_frame());
+-    m_buffer_rgba[0].resize(avpicture_get_size(PIX_FMT_RGB24, width(), height()));
++    m_frame_rgba.reset(av_frame_alloc());
++    m_buffer_rgba[0].resize(avpicture_get_size(AV_PIX_FMT_RGB24, width(), height()));
+     m_buffer_rgba[1].resize(m_buffer_rgba[0].size());
+ 
+     // Assign appropriate parts of the buffer to image planes in m_frame_rgba
+-    avpicture_fill((AVPicture *) (m_frame_rgba).get(), &(m_buffer_rgba[0])[0], PIX_FMT_RGB24, width(), height());
++    avpicture_fill((AVPicture *) (m_frame_rgba).get(), &(m_buffer_rgba[0])[0], AV_PIX_FMT_RGB24, width(), height());
+ 
+     // Override get_buffer()/release_buffer() from codec context in order to retrieve the PTS of each frame.
+     m_context->opaque = this;
+-    m_context->get_buffer = getBuffer;
+-    m_context->release_buffer = releaseBuffer;
++    m_context->get_buffer2 = getBuffer;
+ }
+ 
+ 
+@@ -190,10 +193,31 @@ void FFmpegDecoderVideo::decodeLoop()
+                 }
+                 else if (packet.packet.dts == int64_t(AV_NOPTS_VALUE) &&
+                         m_frame->opaque != 0 &&
+-                        *reinterpret_cast<const int64_t*>(m_frame->opaque) != int64_t(AV_NOPTS_VALUE))
++                        reinterpret_cast<uintptr_t>(m_frame->opaque) != uintptr_t(AV_NOPTS_VALUE))
+                 {
+-                    pts = *reinterpret_cast<const int64_t*>(m_frame->opaque);
++                    if(sizeof(void*) >= sizeof(double))
++                        memcpy(&pts, &m_frame->opaque, sizeof(double));
++                    else if(sizeof(void*) >= sizeof(float)) {
++                        float f;
++                        memcpy(&f, &m_frame->opaque, sizeof(float));
++                        pts = f;
++                    } else {
++                        // Are there any weird 32-bit platforms with 64-bit floats or so?
++                        // We shouldn't be getting here, but let's at least try to
++                        // do something reasonable.
++                        pts = reinterpret_cast<uintptr_t>(m_frame->opaque);
++                        if(pts != AV_NOPTS_VALUE)
++                            pts /= 100.0;
++                    }
+                     timebase = m_stream->time_base;
++                    if(pts == AV_NOPTS_VALUE) {
++                        if(packet.packet.dts != AV_NOPTS_VALUE)
++                            pts = packet.packet.dts;
++                        else {
++                            pts = 0;
++                            timebase = m_context->time_base;
++                        }
++                    }
+                 }
+                 else if (packet.packet.dts != int64_t(AV_NOPTS_VALUE))
+                 {
+@@ -267,8 +291,8 @@ int FFmpegDecoderVideo::convert(AVPictur
+ #ifdef USE_SWSCALE
+     if (m_swscale_ctx==0)
+     {
+-        m_swscale_ctx = sws_getContext(src_width, src_height, (PixelFormat) src_pix_fmt,
+-                                      src_width, src_height, (PixelFormat) dst_pix_fmt,
++        m_swscale_ctx = sws_getContext(src_width, src_height, (AVPixelFormat) src_pix_fmt,
++                                      src_width, src_height, (AVPixelFormat) dst_pix_fmt,
+                                       /*SWS_BILINEAR*/ SWS_BICUBIC, NULL, NULL, NULL);
+     }
+ 
+@@ -315,14 +339,14 @@ void FFmpegDecoderVideo::publishFrame(co
+     AVPicture * const dst = (AVPicture *) m_frame_rgba.get();
+ 
+     // Assign appropriate parts of the buffer to image planes in m_frame_rgba
+-    avpicture_fill((AVPicture *) (m_frame_rgba).get(), &(m_buffer_rgba[m_writeBuffer])[0], PIX_FMT_RGB24, width(), height());
++    avpicture_fill((AVPicture *) (m_frame_rgba).get(), &(m_buffer_rgba[m_writeBuffer])[0], AV_PIX_FMT_RGB24, width(), height());
+ 
+     // Convert YUVA420p (i.e. YUV420p plus alpha channel) using our own routine
+ 
+-    if (m_context->pix_fmt == PIX_FMT_YUVA420P)
++    if (m_context->pix_fmt == AV_PIX_FMT_YUVA420P)
+         yuva420pToRgba(dst, src, width(), height());
+     else
+-        convert(dst, PIX_FMT_RGB24, src, m_context->pix_fmt, width(), height());
++        convert(dst, AV_PIX_FMT_RGB24, src, m_context->pix_fmt, width(), height());
+ 
+     // Wait 'delay' seconds before publishing the picture.
+     int i_delay = static_cast<int>(delay * 1000000 + 0.5);
+@@ -349,7 +373,7 @@ void FFmpegDecoderVideo::publishFrame(co
+ 
+ void FFmpegDecoderVideo::yuva420pToRgba(AVPicture * const dst, AVPicture * const src, int width, int height)
+ {
+-    convert(dst, PIX_FMT_RGB24, src, m_context->pix_fmt, width, height);
++    convert(dst, AV_PIX_FMT_RGB24, src, m_context->pix_fmt, width, height);
+ 
+     const size_t bpp = 4;
+ 
+@@ -369,29 +393,32 @@ void FFmpegDecoderVideo::yuva420pToRgba(
+ 
+ 
+ 
+-int FFmpegDecoderVideo::getBuffer(AVCodecContext * const context, AVFrame * const picture)
++int FFmpegDecoderVideo::getBuffer(AVCodecContext *context, AVFrame *picture, int flags)
+ {
+     const FFmpegDecoderVideo * const this_ = reinterpret_cast<const FFmpegDecoderVideo*>(context->opaque);
+ 
+-    const int result = avcodec_default_get_buffer(context, picture);
+-    int64_t * p_pts = reinterpret_cast<int64_t*>( av_malloc(sizeof(int64_t)) );
+-
+-    *p_pts = this_->m_packet_pts;
+-    picture->opaque = p_pts;
++    const int result = avcodec_default_get_buffer2(context, picture, flags);
+ 
++    // Since releaseBuffer is gone, we can't add a pointer to pts
++    // without creating a huge memory leak.
++    // Fortunately, on 64-bit platforms, sizeof(void*) == sizeof(double).
++    // On 32-bit platforms, casting pts to a float should still be good
++    // enough as long as we aren't dealing with super high-speed cameras...
++    if(sizeof(void*) >= sizeof(double))
++        memcpy(&picture->opaque, &this_->m_packet_pts, sizeof(double));
++    else if(sizeof(void*) >= sizeof(float)) {
++        float f = this_->m_packet_pts;
++        memcpy(&picture->opaque, &f, sizeof(float));
++    } else {
++        // Are there any weird 32-bit platforms with 64-bit floats or so?
++        // We shouldn't be getting here, but let's at least try to
++        // do something reasonable.
++        if(this_->m_packet_pts == AV_NOPTS_VALUE)
++            picture->opaque = reinterpret_cast<void*>(AV_NOPTS_VALUE);
++        else
++            picture->opaque = reinterpret_cast<void*>(static_cast<uintptr_t>(this_->m_packet_pts * 100.0));
++    }
+     return result;
+ }
+ 
+-
+-
+-void FFmpegDecoderVideo::releaseBuffer(AVCodecContext * const context, AVFrame * const picture)
+-{
+-    if (picture != 0)
+-        av_freep(&picture->opaque);
+-
+-    avcodec_default_release_buffer(context, picture);
+-}
+-
+-
+-
+ } // namespace osgFFmpeg
+--- OpenSceneGraph-3.4.0/src/osgPlugins/ffmpeg/FFmpegDecoderVideo.hpp.ff3~	2016-03-24 10:05:35.000000000 +0000
++++ OpenSceneGraph-3.4.0/src/osgPlugins/ffmpeg/FFmpegDecoderVideo.hpp	2016-03-24 10:05:56.000000000 +0000
+@@ -94,7 +94,7 @@ private:
+                 int src_pix_fmt, int src_width, int src_height);
+ 
+ 
+-    static int getBuffer(AVCodecContext * context, AVFrame * picture);
++    static int getBuffer(AVCodecContext * context, AVFrame * picture, int flags);
+     static void releaseBuffer(AVCodecContext * context, AVFrame * picture);
+ 
+     PacketQueue &           m_packets;
+--- OpenSceneGraph-3.4.0/src/osgPlugins/ffmpeg/FFmpegParameters.cpp.ff3~	2016-03-24 10:24:04.000000000 +0000
++++ OpenSceneGraph-3.4.0/src/osgPlugins/ffmpeg/FFmpegParameters.cpp	2016-03-24 10:24:14.000000000 +0000
+@@ -19,7 +19,7 @@ extern "C"
+     #include <libavutil/pixdesc.h>
+ }
+ 
+-inline PixelFormat osg_av_get_pix_fmt(const char *name) { return av_get_pix_fmt(name); }
++inline AVPixelFormat osg_av_get_pix_fmt(const char *name) { return av_get_pix_fmt(name); }
+ 
+ 
+ namespace osgFFmpeg {
