@@ -1,2 +1,4 @@
-sources:
+removed_sources:
   OpenSceneGraph-3.4.0.tar.gz: 63530353562dc762f087b04388a6a018ccbbd3d1
+sources:
+  OpenSceneGraph-3.6.3.tar.gz: e96c5595abca2845ab89abb2b603a9fd122bec65
