@@ -1,5 +1,5 @@
 %define	srcname	OpenSceneGraph
-%define	common_major 158
+%define	common_major 3.6.3
 
 Summary:	A C++ scene graph API on OpenGL for real time graphics
 Name:		openscenegraph
@@ -63,7 +63,7 @@ OpenSceneGraph plugins.
 
 #----------------------------------------------------------------------------
 
-%define OpenThreads_major 20
+%define OpenThreads_major 3.3.1
 %define libOpenThreads %mklibname OpenThreads %{OpenThreads_major}
 
 %package -n %{libOpenThreads}
