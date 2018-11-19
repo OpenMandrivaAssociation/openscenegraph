@@ -1,16 +1,15 @@
 %define	srcname	OpenSceneGraph
-%define	common_major 130
+%define	common_major 131
 
 Summary:	A C++ scene graph API on OpenGL for real time graphics
 Name:		openscenegraph
-Version:	3.4.0
+Version:	3.4.1
 Release:	1
 Epoch:		1
 License:	LGPLv2+ with exceptions
 Group:		System/Libraries
 Url:		http://www.openscenegraph.org/
-Source0:	http://trac.openscenegraph.org/downloads/developer_releases/%{srcname}-%{version}.tar.gz
-Patch1:		openscenegraph-ffmpeg3.patch
+Source0:	https://github.com/openscenegraph/OpenSceneGraph/archive/%{srcname}-%{version}.tar.gz
 BuildRequires:	cmake
 BuildRequires:	ffmpeg-devel
 BuildRequires:	gdal-devel
@@ -24,8 +23,6 @@ BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(IlmBase)
 BuildRequires:	pkgconfig(libxine)
 BuildRequires:	pkgconfig(libcurl)
-BuildRequires:	pkgconfig(gtk+-2.0)
-BuildRequires:	pkgconfig(gtkglext-1.0)
 BuildRequires:	pkgconfig(jasper)
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(librsvg-2.0)
