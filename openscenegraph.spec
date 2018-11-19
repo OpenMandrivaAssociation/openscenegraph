@@ -34,7 +34,7 @@ BuildRequires:	pkgconfig(sdl2)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(xinerama)
-BuildRequires:	pkgconfig(xandr)
+BuildRequires:	pkgconfig(xrandr)
 Provides:	OpenSceneGraph = %{EVRD}
 Requires:	%{name}-plugins = %{EVRD}
 
