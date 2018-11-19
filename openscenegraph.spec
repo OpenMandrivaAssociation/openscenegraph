@@ -1,5 +1,5 @@
 %define	srcname	OpenSceneGraph
-%define	common_major 3.6.3
+%define	common_major 158
 
 Summary:	A C++ scene graph API on OpenGL for real time graphics
 Name:		openscenegraph
@@ -14,7 +14,6 @@ BuildRequires:	cmake
 BuildRequires:	ffmpeg-devel
 BuildRequires:	gdal-devel
 BuildRequires:	jpeg-devel
-BuildRequires:	qt5-devel
 BuildRequires:	tiff-devel
 BuildRequires:	ungif-devel
 BuildRequires:	pkgconfig(cairo)
@@ -31,8 +30,11 @@ BuildRequires:	pkgconfig(openal)
 BuildRequires:	pkgconfig(OpenEXR)
 BuildRequires:	pkgconfig(poppler-glib)
 BuildRequires:	pkgconfig(sdl)
+BuildRequires:	pkgconfig(sdl2)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(zlib)
+BuildRequires:	pkgconfig(xinerama)
+BuildRequires:	pkgconfig(xandr)
 Provides:	OpenSceneGraph = %{EVRD}
 Requires:	%{name}-plugins = %{EVRD}
 
@@ -63,7 +65,8 @@ OpenSceneGraph plugins.
 
 #----------------------------------------------------------------------------
 
-%define OpenThreads_major 3.3.1
+%define OpenThreads_major 21
+%define OpenThreads_version 3.3.1
 %define libOpenThreads %mklibname OpenThreads %{OpenThreads_major}
 
 %package -n %{libOpenThreads}
@@ -75,6 +78,7 @@ OpenSceneGraph shared library.
 
 %files -n %{libOpenThreads}
 %{_libdir}/libOpenThreads.so.%{OpenThreads_major}
+%{_libdir}/libOpenThreads.so.%{OpenThreads_version}
 
 #----------------------------------------------------------------------------
 
@@ -364,40 +368,6 @@ OpenSceneGraph development files.
 %files -n %{devosgPresentation}
 %{_includedir}/osgPresentation
 %{_libdir}/libosgPresentation.so
-
-#----------------------------------------------------------------------------
-
-%define osgQt_major %{common_major}
-%define libosgQt %mklibname osgQt %{osgQt_major}
-
-%package -n %{libosgQt}
-Summary:	OpenSceneGraph shared library
-Group:		System/Libraries
-
-%description -n %{libosgQt}
-OpenSceneGraph shared library.
-
-%files -n %{libosgQt}
-%{_libdir}/libosgQt.so.%{osgQt_major}
-%{_libdir}/libosgQt.so.%{version}
-
-#----------------------------------------------------------------------------
-
-%define devosgQt %mklibname osgQt -d
-
-%package -n %{devosgQt}
-Summary:	OpenSceneGraph development files
-Group:		Development/C++
-Requires:	%{libosgQt} = %{EVRD}
-Conflicts:	openscenegraph-devel < 3.2.0
-
-%description -n %{devosgQt}
-OpenSceneGraph development files.
-
-%files -n %{devosgQt}
-%{_includedir}/osgQt
-%{_libdir}/libosgQt.so
-%{_libdir}/pkgconfig/openscenegraph-osgQt.pc
 
 #----------------------------------------------------------------------------
 
@@ -719,7 +689,6 @@ Requires:	%{devosgGA} = %{EVRD}
 Requires:	%{devosgManipulator} = %{EVRD}
 Requires:	%{devosgParticle} = %{EVRD}
 Requires:	%{devosgPresentation} = %{EVRD}
-Requires:	%{devosgQt} = %{EVRD}
 Requires:	%{devosgShadow} = %{EVRD}
 Requires:	%{devosgSim} = %{EVRD}
 Requires:	%{devosgTerrain} = %{EVRD}
@@ -745,7 +714,7 @@ This package contains development files for %{name}
 %build
 CFLAGS="%{optflags} -pthread"
 CXXFLAGS="%{optflags} -pthread"
-%cmake -DDESIRED_QT_VERSION=5
+%cmake
 %make VERBOSE=TRUE
 
 %install
