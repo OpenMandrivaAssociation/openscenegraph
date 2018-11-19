@@ -45,7 +45,7 @@ design patterns.  Open Scene Graph strives for high performance and quality in
 graphics rendering, portability, and extensibility.
 
 %files
-%doc AUTHORS.txt ChangeLog LICENSE.txt NEWS.txt README.txt
+%doc AUTHORS.txt ChangeLog LICENSE.txt NEWS.txt README.md
 %doc doc/*
 %{_bindir}/*
 
