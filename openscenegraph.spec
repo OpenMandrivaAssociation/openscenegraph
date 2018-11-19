@@ -745,7 +745,7 @@ This package contains development files for %{name}
 
 %build
 CFLAGS="%{optflags} -pthread"
-CXXFLAGS="%{optflags} -pthread"
+CXXFLAGS="%{optflags} -std=gnu++11 -pthread"
 %cmake -DDESIRED_QT_VERSION=5
 %make VERBOSE=TRUE
 
