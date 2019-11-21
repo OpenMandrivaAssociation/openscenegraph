@@ -1,9 +1,9 @@
 %define	srcname	OpenSceneGraph
-%define	common_major 158
+%define	common_major 160
 
 Summary:	A C++ scene graph API on OpenGL for real time graphics
 Name:		openscenegraph
-Version:	3.6.3
+Version:	3.6.4
 Release:	1
 Epoch:		1
 License:	LGPLv2+ with exceptions
@@ -714,8 +714,13 @@ This package contains development files for %{name}
 %build
 CFLAGS="%{optflags} -pthread"
 CXXFLAGS="%{optflags} -pthread"
+rpm --eval %__isa_bits
+%ifarch aarch64 znver1 x86_64 riscv64
+%cmake -DLIB_POSTFIX=64
+%else
 %cmake
-%make VERBOSE=TRUE
+%endif
+%make_build VERBOSE=TRUE
 
 %install
 %makeinstall_std -C build
