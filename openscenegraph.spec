@@ -1,9 +1,9 @@
 %define	srcname	OpenSceneGraph
-%define	common_major 160
+%define	common_major 161
 
 Summary:	A C++ scene graph API on OpenGL for real time graphics
 Name:		openscenegraph
-Version:	3.6.4
+Version:	3.6.5
 Release:	1
 Epoch:		1
 License:	LGPLv2+ with exceptions
