@@ -77,8 +77,8 @@ Group:		System/Libraries
 OpenSceneGraph shared library.
 
 %files -n %{libOpenThreads}
-%{_libdir}/libOpenThreads.so.%{OpenThreads_major}
-%{_libdir}/libOpenThreads.so.%{OpenThreads_version}
+%{_libdir}/libOpenThreadsrd.so.%{OpenThreads_major}
+%{_libdir}/libOpenThreadsrd.so.%{OpenThreads_version}
 
 #----------------------------------------------------------------------------
 
@@ -95,7 +95,7 @@ OpenSceneGraph development files.
 
 %files -n %{devOpenThreads}
 %{_includedir}/OpenThreads
-%{_libdir}/libOpenThreads.so
+%{_libdir}/libOpenThreadsrd.so
 %{_libdir}/pkgconfig/openthreads.pc
 
 #----------------------------------------------------------------------------
@@ -111,8 +111,8 @@ Group:		System/Libraries
 OpenSceneGraph shared library.
 
 %files -n %{libosg}
-%{_libdir}/libosg.so.%{osg_major}
-%{_libdir}/libosg.so.%{version}
+%{_libdir}/libosgrd.so.%{osg_major}
+%{_libdir}/libosgrd.so.%{version}
 
 #----------------------------------------------------------------------------
 
@@ -129,7 +129,7 @@ OpenSceneGraph development files.
 
 %files -n %{devosg}
 %{_includedir}/osg
-%{_libdir}/libosg.so
+%{_libdir}/libosgrd.so
 %{_libdir}/pkgconfig/openscenegraph-osg.pc
 
 #----------------------------------------------------------------------------
@@ -145,8 +145,8 @@ Group:		System/Libraries
 OpenSceneGraph shared library.
 
 %files -n %{libosgAnimation}
-%{_libdir}/libosgAnimation.so.%{osgAnimation_major}
-%{_libdir}/libosgAnimation.so.%{version}
+%{_libdir}/libosgAnimationrd.so.%{osgAnimation_major}
+%{_libdir}/libosgAnimationrd.so.%{version}
 
 #----------------------------------------------------------------------------
 
@@ -163,7 +163,7 @@ OpenSceneGraph development files.
 
 %files -n %{devosgAnimation}
 %{_includedir}/osgAnimation
-%{_libdir}/libosgAnimation.so
+%{_libdir}/libosgAnimationrd.so
 %{_libdir}/pkgconfig/openscenegraph-osgAnimation.pc
 
 #----------------------------------------------------------------------------
@@ -179,8 +179,8 @@ Group:		System/Libraries
 OpenSceneGraph shared library.
 
 %files -n %{libosgDB}
-%{_libdir}/libosgDB.so.%{osgDB_major}
-%{_libdir}/libosgDB.so.%{version}
+%{_libdir}/libosgDBrd.so.%{osgDB_major}
+%{_libdir}/libosgDBrd.so.%{version}
 
 #----------------------------------------------------------------------------
 
@@ -197,7 +197,7 @@ OpenSceneGraph development files.
 
 %files -n %{devosgDB}
 %{_includedir}/osgDB
-%{_libdir}/libosgDB.so
+%{_libdir}/libosgDBrd.so
 %{_libdir}/pkgconfig/openscenegraph-osgDB.pc
 
 #----------------------------------------------------------------------------
@@ -213,8 +213,8 @@ Group:		System/Libraries
 OpenSceneGraph shared library.
 
 %files -n %{libosgFX}
-%{_libdir}/libosgFX.so.%{osgFX_major}
-%{_libdir}/libosgFX.so.%{version}
+%{_libdir}/libosgFXrd.so.%{osgFX_major}
+%{_libdir}/libosgFXrd.so.%{version}
 
 #----------------------------------------------------------------------------
 
@@ -231,7 +231,7 @@ OpenSceneGraph development files.
 
 %files -n %{devosgFX}
 %{_includedir}/osgFX
-%{_libdir}/libosgFX.so
+%{_libdir}/libosgFXrd.so
 %{_libdir}/pkgconfig/openscenegraph-osgFX.pc
 
 #----------------------------------------------------------------------------
@@ -247,8 +247,8 @@ Group:		System/Libraries
 OpenSceneGraph shared library.
 
 %files -n %{libosgGA}
-%{_libdir}/libosgGA.so.%{osgGA_major}
-%{_libdir}/libosgGA.so.%{version}
+%{_libdir}/libosgGArd.so.%{osgGA_major}
+%{_libdir}/libosgGArd.so.%{version}
 
 #----------------------------------------------------------------------------
 
@@ -265,7 +265,7 @@ OpenSceneGraph development files.
 
 %files -n %{devosgGA}
 %{_includedir}/osgGA
-%{_libdir}/libosgGA.so
+%{_libdir}/libosgGArd.so
 %{_libdir}/pkgconfig/openscenegraph-osgGA.pc
 
 #----------------------------------------------------------------------------
@@ -281,8 +281,8 @@ Group:		System/Libraries
 OpenSceneGraph shared library.
 
 %files -n %{libosgManipulator}
-%{_libdir}/libosgManipulator.so.%{osgManipulator_major}
-%{_libdir}/libosgManipulator.so.%{version}
+%{_libdir}/libosgManipulatorrd.so.%{osgManipulator_major}
+%{_libdir}/libosgManipulatorrd.so.%{version}
 
 #----------------------------------------------------------------------------
 
@@ -299,7 +299,7 @@ OpenSceneGraph development files.
 
 %files -n %{devosgManipulator}
 %{_includedir}/osgManipulator
-%{_libdir}/libosgManipulator.so
+%{_libdir}/libosgManipulatorrd.so
 %{_libdir}/pkgconfig/openscenegraph-osgManipulator.pc
 
 #----------------------------------------------------------------------------
@@ -315,8 +315,8 @@ Group:		System/Libraries
 OpenSceneGraph shared library.
 
 %files -n %{libosgParticle}
-%{_libdir}/libosgParticle.so.%{osgParticle_major}
-%{_libdir}/libosgParticle.so.%{version}
+%{_libdir}/libosgParticlerd.so.%{osgParticle_major}
+%{_libdir}/libosgParticlerd.so.%{version}
 
 #----------------------------------------------------------------------------
 
@@ -333,7 +333,7 @@ OpenSceneGraph development files.
 
 %files -n %{devosgParticle}
 %{_includedir}/osgParticle
-%{_libdir}/libosgParticle.so
+%{_libdir}/libosgParticlerd.so
 %{_libdir}/pkgconfig/openscenegraph-osgParticle.pc
 
 #----------------------------------------------------------------------------
@@ -349,8 +349,8 @@ Group:		System/Libraries
 OpenSceneGraph shared library.
 
 %files -n %{libosgPresentation}
-%{_libdir}/libosgPresentation.so.%{osgPresentation_major}
-%{_libdir}/libosgPresentation.so.%{version}
+%{_libdir}/libosgPresentationrd.so.%{osgPresentation_major}
+%{_libdir}/libosgPresentationrd.so.%{version}
 
 #----------------------------------------------------------------------------
 
@@ -367,7 +367,7 @@ OpenSceneGraph development files.
 
 %files -n %{devosgPresentation}
 %{_includedir}/osgPresentation
-%{_libdir}/libosgPresentation.so
+%{_libdir}/libosgPresentationrd.so
 
 #----------------------------------------------------------------------------
 
@@ -382,8 +382,8 @@ Group:		System/Libraries
 OpenSceneGraph shared library.
 
 %files -n %{libosgShadow}
-%{_libdir}/libosgShadow.so.%{osgShadow_major}
-%{_libdir}/libosgShadow.so.%{version}
+%{_libdir}/libosgShadowrd.so.%{osgShadow_major}
+%{_libdir}/libosgShadowrd.so.%{version}
 
 #----------------------------------------------------------------------------
 
@@ -400,7 +400,7 @@ OpenSceneGraph development files.
 
 %files -n %{devosgShadow}
 %{_includedir}/osgShadow
-%{_libdir}/libosgShadow.so
+%{_libdir}/libosgShadowrd.so
 %{_libdir}/pkgconfig/openscenegraph-osgShadow.pc
 
 #----------------------------------------------------------------------------
@@ -416,8 +416,8 @@ Group:		System/Libraries
 OpenSceneGraph shared library.
 
 %files -n %{libosgSim}
-%{_libdir}/libosgSim.so.%{osgSim_major}
-%{_libdir}/libosgSim.so.%{version}
+%{_libdir}/libosgSimrd.so.%{osgSim_major}
+%{_libdir}/libosgSimrd.so.%{version}
 
 #----------------------------------------------------------------------------
 
@@ -434,7 +434,7 @@ OpenSceneGraph development files.
 
 %files -n %{devosgSim}
 %{_includedir}/osgSim
-%{_libdir}/libosgSim.so
+%{_libdir}/libosgSimrd.so
 %{_libdir}/pkgconfig/openscenegraph-osgSim.pc
 
 #----------------------------------------------------------------------------
@@ -450,8 +450,8 @@ Group:		System/Libraries
 OpenSceneGraph shared library.
 
 %files -n %{libosgTerrain}
-%{_libdir}/libosgTerrain.so.%{osgTerrain_major}
-%{_libdir}/libosgTerrain.so.%{version}
+%{_libdir}/libosgTerrainrd.so.%{osgTerrain_major}
+%{_libdir}/libosgTerrainrd.so.%{version}
 
 #----------------------------------------------------------------------------
 
@@ -468,7 +468,7 @@ OpenSceneGraph development files.
 
 %files -n %{devosgTerrain}
 %{_includedir}/osgTerrain
-%{_libdir}/libosgTerrain.so
+%{_libdir}/libosgTerrainrd.so
 %{_libdir}/pkgconfig/openscenegraph-osgTerrain.pc
 
 #----------------------------------------------------------------------------
@@ -484,8 +484,8 @@ Group:		System/Libraries
 OpenSceneGraph shared library.
 
 %files -n %{libosgText}
-%{_libdir}/libosgText.so.%{osgText_major}
-%{_libdir}/libosgText.so.%{version}
+%{_libdir}/libosgTextrd.so.%{osgText_major}
+%{_libdir}/libosgTextrd.so.%{version}
 
 #----------------------------------------------------------------------------
 
@@ -502,7 +502,7 @@ OpenSceneGraph development files.
 
 %files -n %{devosgText}
 %{_includedir}/osgText
-%{_libdir}/libosgText.so
+%{_libdir}/libosgTextrd.so
 %{_libdir}/pkgconfig/openscenegraph-osgText.pc
 
 #----------------------------------------------------------------------------
@@ -518,8 +518,8 @@ Group:          System/Libraries
 OpenSceneGraph shared library.
 
 %files -n %{libosgUI}
-%{_libdir}/libosgUI.so.%{osgUtil_major}
-%{_libdir}/libosgUI.so.%{version}
+%{_libdir}/libosgUIrd.so.%{osgUtil_major}
+%{_libdir}/libosgUIrd.so.%{version}
 
 #----------------------------------------------------------------------------
 
@@ -536,7 +536,7 @@ OpenSceneGraph development files.
 
 %files -n %{devosgUI}
 %{_includedir}/osgUI
-%{_libdir}/libosgUI.so
+%{_libdir}/libosgUIrd.so
 
 #----------------------------------------------------------------------------
 
@@ -551,8 +551,8 @@ Group:		System/Libraries
 OpenSceneGraph shared library.
 
 %files -n %{libosgUtil}
-%{_libdir}/libosgUtil.so.%{osgUtil_major}
-%{_libdir}/libosgUtil.so.%{version}
+%{_libdir}/libosgUtilrd.so.%{osgUtil_major}
+%{_libdir}/libosgUtilrd.so.%{version}
 
 #----------------------------------------------------------------------------
 
@@ -569,7 +569,7 @@ OpenSceneGraph development files.
 
 %files -n %{devosgUtil}
 %{_includedir}/osgUtil
-%{_libdir}/libosgUtil.so
+%{_libdir}/libosgUtilrd.so
 %{_libdir}/pkgconfig/openscenegraph-osgUtil.pc
 
 #----------------------------------------------------------------------------
@@ -585,8 +585,8 @@ Group:		System/Libraries
 OpenSceneGraph shared library.
 
 %files -n %{libosgViewer}
-%{_libdir}/libosgViewer.so.%{osgViewer_major}
-%{_libdir}/libosgViewer.so.%{version}
+%{_libdir}/libosgViewerrd.so.%{osgViewer_major}
+%{_libdir}/libosgViewerrd.so.%{version}
 
 #----------------------------------------------------------------------------
 
@@ -603,7 +603,7 @@ OpenSceneGraph development files.
 
 %files -n %{devosgViewer}
 %{_includedir}/osgViewer
-%{_libdir}/libosgViewer.so
+%{_libdir}/libosgViewerrd.so
 %{_libdir}/pkgconfig/openscenegraph-osgViewer.pc
 
 #----------------------------------------------------------------------------
@@ -619,8 +619,8 @@ Group:		System/Libraries
 OpenSceneGraph shared library.
 
 %files -n %{libosgVolume}
-%{_libdir}/libosgVolume.so.%{osgVolume_major}
-%{_libdir}/libosgVolume.so.%{version}
+%{_libdir}/libosgVolumerd.so.%{osgVolume_major}
+%{_libdir}/libosgVolumerd.so.%{version}
 
 #----------------------------------------------------------------------------
 
@@ -637,7 +637,7 @@ OpenSceneGraph development files.
 
 %files -n %{devosgVolume}
 %{_includedir}/osgVolume
-%{_libdir}/libosgVolume.so
+%{_libdir}/libosgVolumerd.so
 %{_libdir}/pkgconfig/openscenegraph-osgVolume.pc
 
 #----------------------------------------------------------------------------
@@ -653,8 +653,8 @@ Group:		System/Libraries
 OpenSceneGraph shared library.
 
 %files -n %{libosgWidget}
-%{_libdir}/libosgWidget.so.%{osgWidget_major}
-%{_libdir}/libosgWidget.so.%{version}
+%{_libdir}/libosgWidgetrd.so.%{osgWidget_major}
+%{_libdir}/libosgWidgetrd.so.%{version}
 
 #----------------------------------------------------------------------------
 
@@ -671,7 +671,7 @@ OpenSceneGraph development files.
 
 %files -n %{devosgWidget}
 %{_includedir}/osgWidget
-%{_libdir}/libosgWidget.so
+%{_libdir}/libosgWidgetrd.so
 %{_libdir}/pkgconfig/openscenegraph-osgWidget.pc
 
 #----------------------------------------------------------------------------
