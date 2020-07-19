@@ -712,9 +712,8 @@ This package contains development files for %{name}
 %autopatch -p1
 
 %build
-CFLAGS="%{optflags} -pthread"
-CXXFLAGS="%{optflags} -pthread"
-rpm --eval %__isa_bits
+#CFLAGS="%{optflags} -pthread"
+#CXXFLAGS="%{optflags} -pthread"
 %ifarch aarch64 znver1 x86_64 riscv64
 %cmake -DLIB_POSTFIX=64
 %else
@@ -723,5 +722,5 @@ rpm --eval %__isa_bits
 %make_build VERBOSE=TRUE
 
 %install
-%makeinstall_std -C build
+%make_install -C build
 
