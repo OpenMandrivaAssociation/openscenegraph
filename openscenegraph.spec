@@ -4,13 +4,14 @@
 Summary:	A C++ scene graph API on OpenGL for real time graphics
 Name:		openscenegraph
 Version:	3.6.5
-Release:	2
+Release:	3
 Epoch:		1
 License:	LGPLv2+ with exceptions
 Group:		System/Libraries
 Url:		http://www.openscenegraph.org/
 Source0:	https://github.com/openscenegraph/OpenSceneGraph/archive/%{srcname}-%{version}.tar.gz
 BuildRequires:	cmake
+BuildRequires:	ninja
 BuildRequires:	ffmpeg-devel
 BuildRequires:	gdal-devel
 BuildRequires:	jpeg-devel
@@ -714,13 +715,14 @@ This package contains development files for %{name}
 %build
 #CFLAGS="%{optflags} -pthread"
 #CXXFLAGS="%{optflags} -pthread"
-%ifarch aarch64 %{x86_64} riscv64
-%cmake -DLIB_POSTFIX=64
-%else
-%cmake
+%cmake \
+%ifarch aarch64 %{x86_64} riscv64 ppc64 ppc64le
+	-DLIB_POSTFIX=64 \
 %endif
-%make_build VERBOSE=TRUE
+	-DCMAKE_RELWITHDEBINFO_POSTFIX="" \
+	-G Ninja
+
+VERBOSE=true %ninja_build
 
 %install
-%make_install -C build
-
+%ninja_install -C build
