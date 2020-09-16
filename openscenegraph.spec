@@ -714,7 +714,7 @@ This package contains development files for %{name}
 %build
 #CFLAGS="%{optflags} -pthread"
 #CXXFLAGS="%{optflags} -pthread"
-%ifarch aarch64 znver1 x86_64 riscv64
+%ifarch aarch64 %{x86_64} riscv64
 %cmake -DLIB_POSTFIX=64
 %else
 %cmake
