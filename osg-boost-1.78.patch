@@ -1,0 +1,90 @@
+diff -up OpenSceneGraph-OpenSceneGraph-3.6.5/src/osg/CMakeLists.txt.omv~ OpenSceneGraph-OpenSceneGraph-3.6.5/src/osg/CMakeLists.txt
+--- OpenSceneGraph-OpenSceneGraph-3.6.5/src/osg/CMakeLists.txt.omv~	2022-01-04 17:11:58.131780431 +0100
++++ OpenSceneGraph-OpenSceneGraph-3.6.5/src/osg/CMakeLists.txt	2022-01-04 17:12:24.475846542 +0100
+@@ -458,3 +458,4 @@ SET(TARGET_EXTERNAL_LIBRARIES
+ #INCLUDE(ModuleInstall OPTIONAL)
+ 
+ SETUP_LIBRARY(${LIB_NAME})
++target_link_libraries(${LIB_NAME} OpenGL)
+diff -up OpenSceneGraph-OpenSceneGraph-3.6.5/src/osgPlugins/RestHttpDevice/connection.cpp.omv~ OpenSceneGraph-OpenSceneGraph-3.6.5/src/osgPlugins/RestHttpDevice/connection.cpp
+--- OpenSceneGraph-OpenSceneGraph-3.6.5/src/osgPlugins/RestHttpDevice/connection.cpp.omv~	2022-01-04 17:28:08.773410211 +0100
++++ OpenSceneGraph-OpenSceneGraph-3.6.5/src/osgPlugins/RestHttpDevice/connection.cpp	2022-01-04 17:38:22.585253545 +0100
+@@ -40,8 +40,8 @@ void connection::start()
+   
+   socket_.async_read_some(asio::buffer(buffer_),
+       boost::bind(&connection::handle_read, shared_from_this(),
+-        asio::placeholders::error,
+-        asio::placeholders::bytes_transferred));
++        std::placeholders::_1,
++        std::placeholders::_2));
+ }
+ 
+ void connection::handle_read(const asio::error_code& e,
+@@ -58,21 +58,21 @@ void connection::handle_read(const asio:
+       request_handler_.handle_request(request_, reply_);
+       asio::async_write(socket_, reply_.to_buffers(),
+           boost::bind(&connection::handle_write, shared_from_this(),
+-            asio::placeholders::error));
++            std::placeholders::_1));
+     }
+     else if (!result)
+     {
+       reply_ = reply::stock_reply(reply::bad_request);
+       asio::async_write(socket_, reply_.to_buffers(),
+           boost::bind(&connection::handle_write, shared_from_this(),
+-            asio::placeholders::error));
++            std::placeholders::_1));
+     }
+     else
+     {
+       socket_.async_read_some(asio::buffer(buffer_),
+           boost::bind(&connection::handle_read, shared_from_this(),
+-            asio::placeholders::error,
+-            asio::placeholders::bytes_transferred));
++            std::placeholders::_1,
++            std::placeholders::_2));
+     }
+   }
+ 
+diff -up OpenSceneGraph-OpenSceneGraph-3.6.5/src/osgPlugins/RestHttpDevice/server.cpp.omv~ OpenSceneGraph-OpenSceneGraph-3.6.5/src/osgPlugins/RestHttpDevice/server.cpp
+--- OpenSceneGraph-OpenSceneGraph-3.6.5/src/osgPlugins/RestHttpDevice/server.cpp.omv~	2022-01-04 17:38:58.592356171 +0100
++++ OpenSceneGraph-OpenSceneGraph-3.6.5/src/osgPlugins/RestHttpDevice/server.cpp	2022-01-04 18:00:37.814813789 +0100
+@@ -23,7 +23,7 @@ server::server(const std::string& addres
+     request_handler_(doc_root)
+ {
+   // Open the acceptor with the option to reuse the address (i.e. SO_REUSEADDR).
+-  asio::ip::tcp::resolver resolver(acceptor_.get_io_service());
++  asio::ip::tcp::resolver resolver(io_service_pool_.get_io_service());
+   asio::ip::tcp::resolver::query query(address, port);
+   asio::ip::tcp::endpoint endpoint = *resolver.resolve(query);
+   acceptor_.open(endpoint.protocol());
+@@ -32,7 +32,7 @@ server::server(const std::string& addres
+   acceptor_.listen();
+   acceptor_.async_accept(new_connection_->socket(),
+       boost::bind(&server::handle_accept, this,
+-        asio::placeholders::error));
++        std::placeholders::_1));
+ }
+ 
+ void server::run()
+@@ -57,7 +57,7 @@ void server::handle_accept(const asio::e
+           io_service_pool_.get_io_service(), request_handler_));
+     acceptor_.async_accept(new_connection_->socket(),
+         boost::bind(&server::handle_accept, this,
+-          asio::placeholders::error));
++          std::placeholders::_1));
+   }
+   else
+   {
+diff -up OpenSceneGraph-OpenSceneGraph-3.6.5/src/osgViewer/CMakeLists.txt.omv~ OpenSceneGraph-OpenSceneGraph-3.6.5/src/osgViewer/CMakeLists.txt
+--- OpenSceneGraph-OpenSceneGraph-3.6.5/src/osgViewer/CMakeLists.txt.omv~	2022-01-04 17:20:21.328059340 +0100
++++ OpenSceneGraph-OpenSceneGraph-3.6.5/src/osgViewer/CMakeLists.txt	2022-01-04 17:20:48.583129314 +0100
+@@ -247,7 +247,7 @@ SET(TARGET_LIBRARIES
+     OpenThreads
+ )
+ 
+-SET(TARGET_EXTERNAL_LIBRARIES ${LIB_EXTRA_LIBS})
++SET(TARGET_EXTERNAL_LIBRARIES ${LIB_EXTRA_LIBS} OpenGL GLX)
+ 
+ IF(MINGW OR CYGWIN)
+     SET(TARGET_EXTERNAL_LIBRARIES ${TARGET_EXTERNAL_LIBRARIES} gdi32 )
