@@ -1,0 +1,12 @@
+diff -up OpenSceneGraph-OpenSceneGraph-3.6.5/src/osgPlugins/OpenCASCADE/ReaderWriterOpenCASCADE.cpp.omv~ OpenSceneGraph-OpenSceneGraph-3.6.5/src/osgPlugins/OpenCASCADE/ReaderWriterOpenCASCADE.cpp
+--- OpenSceneGraph-OpenSceneGraph-3.6.5/src/osgPlugins/OpenCASCADE/ReaderWriterOpenCASCADE.cpp.omv~	2022-01-16 02:05:28.718045640 +0100
++++ OpenSceneGraph-OpenSceneGraph-3.6.5/src/osgPlugins/OpenCASCADE/ReaderWriterOpenCASCADE.cpp	2022-01-16 02:15:18.889346406 +0100
+@@ -211,7 +211,7 @@ osg::ref_ptr<osg::Geometry> ReaderWritte
+                 {
+                     // populate vertex list
+                     // Ref: http://www.opencascade.org/org/forum/thread_16694/?forum=3
+-                    gp_Pnt pt = (triangulation->Nodes())(j).Transformed(transformation * location.Transformation());
++                    gp_Pnt pt = triangulation->Node(j).Transformed(transformation * location.Transformation());
+                     vertexList->push_back(osg::Vec3(pt.X(), pt.Y(), pt.Z()));
+ 
+                     // populate color list

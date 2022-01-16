@@ -10,6 +10,7 @@ Group:		System/Libraries
 Url:		http://www.openscenegraph.org/
 Source0:	https://github.com/openscenegraph/OpenSceneGraph/archive/%{srcname}-%{version}.tar.gz
 Patch0:		osg-boost-1.78.patch
+Patch1:		osg-3.6.5-opencascade-7.6.0.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	ffmpeg-devel
