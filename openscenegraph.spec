@@ -13,7 +13,7 @@ Patch0:		osg-boost-1.78.patch
 Patch1:		osg-3.6.5-opencascade-7.6.0.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
-BuildRequires:	ffmpeg-devel
+BuildRequires:	ffmpeg4-devel
 BuildRequires:	gdal-devel
 BuildRequires:	jpeg-devel
 BuildRequires:	tiff-devel
