@@ -12,6 +12,8 @@ Source0:	https://github.com/openscenegraph/OpenSceneGraph/archive/%{srcname}-%{v
 Patch0:		osg-boost-1.78.patch
 Patch1:		osg-3.6.5-opencascade-7.6.0.patch
 # https://github.com/openscenegraph/OpenSceneGraph/issues/1111
+Patch2:		https://patch-diff.githubusercontent.com/raw/openscenegraph/OpenSceneGraph/pull/951.patch
+
 BuildConflicts:	pkgconfig(libavcodec)
 BuildRequires:	cmake
 BuildRequires:	ninja
