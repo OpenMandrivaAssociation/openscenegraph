@@ -1,3 +1,5 @@
+%global optflags %{optflags} -Wno-register
+
 %define	srcname	OpenSceneGraph
 %define	common_major 161
 
