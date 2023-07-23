@@ -1,0 +1,124 @@
+From 13a001827093973f2c3a4c812671e43286aaa1d7 Mon Sep 17 00:00:00 2001
+From: Petukhov Maksim <Petuhov_M@credo-dialogue.com>
+Date: Fri, 21 Jul 2023 22:24:12 +0300
+Subject: [PATCH 1/2] fix
+
+fix again
+
+fix one more time
+---
+ src/osgPlugins/dae/ReaderWriterDAE.cpp      |  2 +-
+ src/osgPlugins/ffmpeg/FFmpegImageStream.cpp |  9 +++++++--
+ src/osgPlugins/gdal/ReaderWriterGDAL.cpp    | 10 ++++++++--
+ 3 files changed, 16 insertions(+), 5 deletions(-)
+
+diff --git a/src/osgPlugins/dae/ReaderWriterDAE.cpp b/src/osgPlugins/dae/ReaderWriterDAE.cpp
+index fc1a448d41e..3b883f19ad7 100644
+--- a/src/osgPlugins/dae/ReaderWriterDAE.cpp
++++ b/src/osgPlugins/dae/ReaderWriterDAE.cpp
+@@ -32,7 +32,7 @@
+ 
+ #define SERIALIZER() OpenThreads::ScopedLock<OpenThreads::ReentrantMutex> lock(_serializerMutex)
+ 
+-#if  __cplusplus > 199711L
++#if ((defined(_MSVC_LANG) && _MSVC_LANG > 199711L) || __cplusplus > 199711L)
+     #define smart_ptr std::unique_ptr
+ #else
+     #define smart_ptr std::auto_ptr
+diff --git a/src/osgPlugins/ffmpeg/FFmpegImageStream.cpp b/src/osgPlugins/ffmpeg/FFmpegImageStream.cpp
+index 69826c45618..9bba5532a00 100644
+--- a/src/osgPlugins/ffmpeg/FFmpegImageStream.cpp
++++ b/src/osgPlugins/ffmpeg/FFmpegImageStream.cpp
+@@ -10,6 +10,11 @@
+ 
+ #define STREAM_TIMEOUT_IN_SECONDS_TO_CONSIDER_IT_DEAD   10
+ 
++#if ((defined(_MSVC_LANG) && _MSVC_LANG > 199711L) || __cplusplus > 199711L)
++    #define smart_ptr std::unique_ptr
++#else
++    #define smart_ptr std::auto_ptr
++#endif
+ 
+ namespace osgFFmpeg {
+ 
+@@ -23,8 +28,8 @@ FFmpegImageStream::FFmpegImageStream() :
+ {
+     setOrigin(osg::Image::TOP_LEFT);
+ 
+-    std::auto_ptr<FFmpegDecoder> decoder(new FFmpegDecoder);
+-    std::auto_ptr<CommandQueue> commands(new CommandQueue);
++    smart_ptr<FFmpegDecoder> decoder(new FFmpegDecoder);
++    smart_ptr<CommandQueue> commands(new CommandQueue);
+ 
+     m_decoder = decoder.release();
+     m_commands = commands.release();
+diff --git a/src/osgPlugins/gdal/ReaderWriterGDAL.cpp b/src/osgPlugins/gdal/ReaderWriterGDAL.cpp
+index 298e02fcc36..113c9c45f2e 100644
+--- a/src/osgPlugins/gdal/ReaderWriterGDAL.cpp
++++ b/src/osgPlugins/gdal/ReaderWriterGDAL.cpp
+@@ -34,6 +34,12 @@
+ 
+ #define SERIALIZER() OpenThreads::ScopedLock<OpenThreads::ReentrantMutex> lock(_serializerMutex)
+ 
++#if ((defined(_MSVC_LANG) && _MSVC_LANG > 199711L) || __cplusplus > 199711L)
++    #define smart_ptr std::unique_ptr
++#else
++    #define smart_ptr std::auto_ptr
++#endif
++
+ // From easyrgb.com
+ float Hue_2_RGB( float v1, float v2, float vH )
+ {
+@@ -123,7 +129,7 @@ class ReaderWriterGDAL : public osgDB::ReaderWriter
+ 
+             initGDAL();
+ 
+-            std::auto_ptr<GDALDataset> dataset((GDALDataset*)GDALOpen(fileName.c_str(),GA_ReadOnly));
++            smart_ptr<GDALDataset> dataset((GDALDataset*)GDALOpen(fileName.c_str(),GA_ReadOnly));
+             if (!dataset.get()) return ReadResult::FILE_NOT_HANDLED;
+ 
+             int dataWidth = dataset->GetRasterXSize();
+@@ -577,7 +583,7 @@ class ReaderWriterGDAL : public osgDB::ReaderWriter
+ 
+             initGDAL();
+ 
+-            std::auto_ptr<GDALDataset> dataset((GDALDataset*)GDALOpen(fileName.c_str(),GA_ReadOnly));
++            smart_ptr<GDALDataset> dataset((GDALDataset*)GDALOpen(fileName.c_str(),GA_ReadOnly));
+             if (!dataset.get()) return ReadResult::FILE_NOT_HANDLED;
+ 
+             int dataWidth = dataset->GetRasterXSize();
+
+From 4f2373dcefccd63b823e6d6b48e8cefd07a21e1e Mon Sep 17 00:00:00 2001
+From: Petukhov Maksim <Petuhov_M@credo-dialogue.com>
+Date: Fri, 21 Jul 2023 23:19:14 +0300
+Subject: [PATCH 2/2] fix
+
+fix
+---
+ src/osgPlugins/obj/obj.cpp | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/src/osgPlugins/obj/obj.cpp b/src/osgPlugins/obj/obj.cpp
+index 859add65287..f96cf3cb07c 100644
+--- a/src/osgPlugins/obj/obj.cpp
++++ b/src/osgPlugins/obj/obj.cpp
+@@ -37,10 +37,15 @@ using namespace obj;
+ 
+ static std::string strip( const std::string& ss )
+ {
+-    std::string result;
+-    result.assign( std::find_if( ss.begin(), ss.end(), std::not1( std::ptr_fun< int, int >( isspace ) ) ),
+-                   std::find_if( ss.rbegin(), ss.rend(), std::not1( std::ptr_fun< int, int >( isspace ) ) ).base() );
+-    return( result );
++    std::string::const_iterator it = ss.begin();
++    while (it != ss.end() && isspace(*it))
++        it++;
++
++    std::string::const_reverse_iterator rit = ss.rbegin();
++    while (rit.base() != it && isspace(*rit))
++        rit++;
++
++    return std::string(it, rit.base());
+ }
+ 
+ /*
