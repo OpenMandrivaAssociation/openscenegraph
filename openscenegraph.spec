@@ -6,7 +6,7 @@
 Summary:	A C++ scene graph API on OpenGL for real time graphics
 Name:		openscenegraph
 Version:	3.6.5
-Release:	15
+Release:	16
 License:	LGPLv2+ with exceptions
 Group:		System/Libraries
 Url:		http://www.openscenegraph.org/
@@ -75,11 +75,13 @@ OpenSceneGraph plugins.
 
 %define OpenThreads_major 21
 %define OpenThreads_version 3.3.1
-%define libOpenThreads %mklibname OpenThreads %{OpenThreads_major}
+%define oldlibOpenThreads %mklibname OpenThreads 21
+%define libOpenThreads %mklibname OpenThreads
 
 %package -n %{libOpenThreads}
 Summary:	OpenSceneGraph shared library
 Group:		System/Libraries
+%rename %{oldlibOpenThreads}
 
 %description -n %{libOpenThreads}
 OpenSceneGraph shared library.
@@ -109,11 +111,13 @@ OpenSceneGraph development files.
 #----------------------------------------------------------------------------
 
 %define osg_major %{common_major}
-%define libosg %mklibname osg %{osg_major}
+%define oldlibosg %mklibname osg 161
+%define libosg %mklibname osg
 
 %package -n %{libosg}
 Summary:	OpenSceneGraph shared library
 Group:		System/Libraries
+%rename %{oldlibosg}
 
 %description -n %{libosg}
 OpenSceneGraph shared library.
@@ -143,11 +147,13 @@ OpenSceneGraph development files.
 #----------------------------------------------------------------------------
 
 %define osgAnimation_major %{common_major}
-%define libosgAnimation %mklibname osgAnimation %{osgAnimation_major}
+%define oldlibosgAnimation %mklibname osgAnimation 161
+%define libosgAnimation %mklibname osgAnimation
 
 %package -n %{libosgAnimation}
 Summary:	OpenSceneGraph shared library
 Group:		System/Libraries
+%rename %{oldlibosgAnimation}
 
 %description -n %{libosgAnimation}
 OpenSceneGraph shared library.
@@ -177,11 +183,13 @@ OpenSceneGraph development files.
 #----------------------------------------------------------------------------
 
 %define osgDB_major %{common_major}
-%define libosgDB %mklibname osgDB %{osgDB_major}
+%define oldlibosgDB %mklibname osgDB 161
+%define libosgDB %mklibname osgDB
 
 %package -n %{libosgDB}
 Summary:	OpenSceneGraph shared library
 Group:		System/Libraries
+%rename %{oldlibosgDB}
 
 %description -n %{libosgDB}
 OpenSceneGraph shared library.
@@ -211,11 +219,13 @@ OpenSceneGraph development files.
 #----------------------------------------------------------------------------
 
 %define osgFX_major %{common_major}
-%define libosgFX %mklibname osgFX %{osgFX_major}
+%define oldlibosgFX %mklibname osgFX 161
+%define libosgFX %mklibname osgFX
 
 %package -n %{libosgFX}
 Summary:	OpenSceneGraph shared library
 Group:		System/Libraries
+%rename %{oldlibosgFX}
 
 %description -n %{libosgFX}
 OpenSceneGraph shared library.
@@ -245,11 +255,13 @@ OpenSceneGraph development files.
 #----------------------------------------------------------------------------
 
 %define osgGA_major %{common_major}
-%define libosgGA %mklibname osgGA %{osgGA_major}
+%define oldlibosgGA %mklibname osgGA 161
+%define libosgGA %mklibname osgGA
 
 %package -n %{libosgGA}
 Summary:	OpenSceneGraph shared library
 Group:		System/Libraries
+%rename %{oldlibosgGA}
 
 %description -n %{libosgGA}
 OpenSceneGraph shared library.
@@ -279,11 +291,13 @@ OpenSceneGraph development files.
 #----------------------------------------------------------------------------
 
 %define osgManipulator_major %{common_major}
-%define libosgManipulator %mklibname osgManipulator %{osgManipulator_major}
+%define oldlibosgManipulator %mklibname osgManipulator 161
+%define libosgManipulator %mklibname osgManipulator
 
 %package -n %{libosgManipulator}
 Summary:	OpenSceneGraph shared library
 Group:		System/Libraries
+%rename %{oldlibosgManipulator}
 
 %description -n %{libosgManipulator}
 OpenSceneGraph shared library.
@@ -313,11 +327,13 @@ OpenSceneGraph development files.
 #----------------------------------------------------------------------------
 
 %define osgParticle_major %{common_major}
-%define libosgParticle %mklibname osgParticle %{osgParticle_major}
+%define oldlibosgParticle %mklibname osgParticle 161
+%define libosgParticle %mklibname osgParticle
 
 %package -n %{libosgParticle}
 Summary:	OpenSceneGraph shared library
 Group:		System/Libraries
+%rename %{oldlibosgParticle}
 
 %description -n %{libosgParticle}
 OpenSceneGraph shared library.
@@ -347,11 +363,13 @@ OpenSceneGraph development files.
 #----------------------------------------------------------------------------
 
 %define osgPresentation_major %{common_major}
-%define libosgPresentation %mklibname osgPresentation %{osgPresentation_major}
+%define oldlibosgPresentation %mklibname osgPresentation 161
+%define libosgPresentation %mklibname osgPresentation
 
 %package -n %{libosgPresentation}
 Summary:	OpenSceneGraph shared library
 Group:		System/Libraries
+%rename %{oldlibosgPresentation}
 
 %description -n %{libosgPresentation}
 OpenSceneGraph shared library.
@@ -380,11 +398,13 @@ OpenSceneGraph development files.
 #----------------------------------------------------------------------------
 
 %define osgShadow_major %{common_major}
-%define libosgShadow %mklibname osgShadow %{osgShadow_major}
+%define oldlibosgShadow %mklibname osgShadow 161
+%define libosgShadow %mklibname osgShadow
 
 %package -n %{libosgShadow}
 Summary:	OpenSceneGraph shared library
 Group:		System/Libraries
+%rename %{oldlibosgShadow}
 
 %description -n %{libosgShadow}
 OpenSceneGraph shared library.
@@ -414,11 +434,13 @@ OpenSceneGraph development files.
 #----------------------------------------------------------------------------
 
 %define osgSim_major %{common_major}
-%define libosgSim %mklibname osgSim %{osgSim_major}
+%define oldlibosgSim %mklibname osgSim 161
+%define libosgSim %mklibname osgSim
 
 %package -n %{libosgSim}
 Summary:	OpenSceneGraph shared library
 Group:		System/Libraries
+%rename %{oldlibosgSim}
 
 %description -n %{libosgSim}
 OpenSceneGraph shared library.
@@ -448,11 +470,13 @@ OpenSceneGraph development files.
 #----------------------------------------------------------------------------
 
 %define osgTerrain_major %{common_major}
-%define libosgTerrain %mklibname osgTerrain %{osgTerrain_major}
+%define oldlibosgTerrain %mklibname osgTerrain 161
+%define libosgTerrain %mklibname osgTerrain
 
 %package -n %{libosgTerrain}
 Summary:	OpenSceneGraph shared library
 Group:		System/Libraries
+%rename %{oldlibosgTerrain}
 
 %description -n %{libosgTerrain}
 OpenSceneGraph shared library.
@@ -482,11 +506,13 @@ OpenSceneGraph development files.
 #----------------------------------------------------------------------------
 
 %define osgText_major %{common_major}
-%define libosgText %mklibname osgText %{osgText_major}
+%define oldlibosgText %mklibname osgText 161
+%define libosgText %mklibname osgText
 
 %package -n %{libosgText}
 Summary:	OpenSceneGraph shared library
 Group:		System/Libraries
+%rename %{oldlibosgText}
 
 %description -n %{libosgText}
 OpenSceneGraph shared library.
@@ -516,11 +542,13 @@ OpenSceneGraph development files.
 #----------------------------------------------------------------------------
 
 %define osgUI_major %{common_major}
-%define libosgUI %mklibname osgUI %{osgUI_major}
+%define oldlibosgUI %mklibname osgUI 161
+%define libosgUI %mklibname osgUI
 
 %package -n %{libosgUI}
 Summary:        OpenSceneGraph shared library
 Group:          System/Libraries
+%rename %{oldlibosgUI}
 
 %description -n %{libosgUI}
 OpenSceneGraph shared library.
@@ -549,11 +577,13 @@ OpenSceneGraph development files.
 #----------------------------------------------------------------------------
 
 %define osgUtil_major %{common_major}
-%define libosgUtil %mklibname osgUtil %{osgUtil_major}
+%define oldlibosgUtil %mklibname osgUtil 161
+%define libosgUtil %mklibname osgUtil
 
 %package -n %{libosgUtil}
 Summary:	OpenSceneGraph shared library
 Group:		System/Libraries
+%rename %{oldlibosgUtil}
 
 %description -n %{libosgUtil}
 OpenSceneGraph shared library.
@@ -583,11 +613,13 @@ OpenSceneGraph development files.
 #----------------------------------------------------------------------------
 
 %define osgViewer_major %{common_major}
-%define libosgViewer %mklibname osgViewer %{osgViewer_major}
+%define oldlibosgViewer %mklibname osgViewer 161
+%define libosgViewer %mklibname osgViewer
 
 %package -n %{libosgViewer}
 Summary:	OpenSceneGraph shared library
 Group:		System/Libraries
+%rename %{oldlibosgViewer}
 
 %description -n %{libosgViewer}
 OpenSceneGraph shared library.
@@ -617,11 +649,13 @@ OpenSceneGraph development files.
 #----------------------------------------------------------------------------
 
 %define osgVolume_major %{common_major}
-%define libosgVolume %mklibname osgVolume %{osgVolume_major}
+%define oldlibosgVolume %mklibname osgVolume 161
+%define libosgVolume %mklibname osgVolume
 
 %package -n %{libosgVolume}
 Summary:	OpenSceneGraph shared library
 Group:		System/Libraries
+%rename %{oldlibosgVolume}
 
 %description -n %{libosgVolume}
 OpenSceneGraph shared library.
@@ -651,11 +685,13 @@ OpenSceneGraph development files.
 #----------------------------------------------------------------------------
 
 %define osgWidget_major %{common_major}
-%define libosgWidget %mklibname osgWidget %{osgWidget_major}
+%define oldlibosgWidget %mklibname osgWidget 161
+%define libosgWidget %mklibname osgWidget
 
 %package -n %{libosgWidget}
 Summary:	OpenSceneGraph shared library
 Group:		System/Libraries
+%rename %{oldlibosgWidget}
 
 %description -n %{libosgWidget}
 OpenSceneGraph shared library.
