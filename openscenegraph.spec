@@ -526,7 +526,7 @@ Group:          System/Libraries
 OpenSceneGraph shared library.
 
 %files -n %{libosgUI}
-%{_libdir}/libosgUI.so.%{osgUtil_major}
+%{_libdir}/libosgUI.so.%{osgUI_major}
 %{_libdir}/libosgUI.so.%{version}
 
 #----------------------------------------------------------------------------
