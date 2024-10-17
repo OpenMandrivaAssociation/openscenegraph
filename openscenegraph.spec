@@ -9,7 +9,7 @@ Version:	3.6.5
 Release:	17
 License:	LGPLv2+ with exceptions
 Group:		System/Libraries
-Url:		http://www.openscenegraph.org/
+Url:		https://www.openscenegraph.org/
 Source0:	https://github.com/openscenegraph/OpenSceneGraph/archive/%{srcname}-%{version}.tar.gz
 Patch0:		osg-boost-1.78.patch
 Patch1:		osg-3.6.5-opencascade-7.6.0.patch
