@@ -6,7 +6,7 @@
 Summary:	A C++ scene graph API on OpenGL for real time graphics
 Name:		openscenegraph
 Version:	3.6.5
-Release:	18
+Release:	19
 License:	LGPLv2+ with exceptions
 Group:		System/Libraries
 Url:		https://www.openscenegraph.org/
