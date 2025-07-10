@@ -6,7 +6,7 @@
 Summary:	A C++ scene graph API on OpenGL for real time graphics
 Name:		openscenegraph
 Version:	3.6.5
-Release:	19
+Release:	20
 License:	LGPLv2+ with exceptions
 Group:		System/Libraries
 Url:		https://www.openscenegraph.org/
@@ -25,6 +25,7 @@ BuildRequires:	jpeg-devel
 BuildRequires:	tiff-devel
 BuildRequires:	ungif-devel
 BuildRequires:	pkgconfig(cairo)
+BuildRequires:	pkgconfig(collada-dom)
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	ilmbase-devel >= 3.0
